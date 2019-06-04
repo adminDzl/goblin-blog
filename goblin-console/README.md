@@ -1,6 +1,6 @@
-# petrichat
+# goblin-console
 
-> web socket chat
+> Blog backend management system
 
 ## Build Setup
 
