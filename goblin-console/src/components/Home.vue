@@ -65,7 +65,7 @@
 						<p class="comment-title">最新消息</p>
 						<ul class="comment-list">
 							<li v-for="(data,index) in commonList" :key="index">
-								<a href="#">
+								<router-link :to="{ path: '/message' }">
 									<el-card>
 										<el-col :span="2">
 											<div class="user-box">
@@ -81,7 +81,7 @@
 											</div>
 										</el-col>
 									</el-card>
-								</a>
+								</router-link>
 							</li>
 						</ul>
 						<el-pagination small layout="prev, pager, next" @current-change="commentHandleCurrentChange" :page-size="commentPageSize"
@@ -99,7 +99,7 @@
 	import Echarts from 'echarts'
 	export default {
 		name: 'Home',
-		comments:{
+		comments: {
 			Echarts
 		},
 		mounted() {

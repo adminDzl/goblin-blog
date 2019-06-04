@@ -1,9 +1,9 @@
 <template>
 	<div>
 		<el-container>
-			<el-header class="header">
+			<el-header class="header" v-show="this.$store.state.showNavbars">
 				<div class="nav-top-menu">
-					<el-menu class="el-menu-demo" mode="horizontal" @select="handleSelect">
+					<el-menu class="el-menu-demo" mode="horizontal">
 						<el-menu-item>
 							<div class="logo">
 								<img src="../../../../build/logo.png" alt="logo" height="100%">
@@ -27,7 +27,7 @@
 									</div>
 									<p class="line"></p>
 									<el-dropdown-item>
-										<a href="#"><i class="fa fa-commenting-o"></i>信息</a>
+										<router-link :to="{ path: '/message' }"><i class="fa fa-commenting-o"></i>信息</router-link>
 										<el-badge class="pull-right msg-badge" :value="3" />
 									</el-dropdown-item>
 									<el-dropdown-item>
@@ -36,8 +36,8 @@
 										<a href="#"><i class="fa fa-address-card-o"></i>个人资料</a></el-dropdown-item>
 									<el-dropdown-item>
 										<a href=""><i class="fa fa-unlock-alt"></i>修改密码</a></el-dropdown-item>
-									<el-dropdown-item class="sign-out">
-										<a href="#"><i class="fa fa-sign-out"></i>注销</a></el-dropdown-item>
+									<el-dropdown-item class="sign-out" >
+										<a href="javascript:;" @click="logout"><i class="fa fa-sign-out"></i>注销</a></el-dropdown-item>
 								</el-dropdown-menu>
 							</el-dropdown>
 						</el-menu-item>
@@ -51,11 +51,10 @@
 				</div>
 			</el-header>
 			<el-container>
-				<el-aside width="200">
+				<el-aside width="200" v-show="this.$store.state.showNavbars">
 					<div class="nav-left-menu">
 						<!-- 使用default-active="1-4-1" 打开菜单时展开-->
-						<el-menu :default-active="this.$router.path" router class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
-						 :collapse="isCollapse">
+						<el-menu :default-active="this.$router.path" router :collapse="isCollapse" unique-opened>
 							<el-menu-item index="/dashboard">
 								<i class="fa fa-dashboard"></i>
 								<span slot="title">数据概况</span>
@@ -63,34 +62,48 @@
 							<el-submenu index="1">
 								<template slot="title">
 									<i class="fa fa-pencil-square-o"></i>
-									<span slot="title">文章管理</span>
+									<span slot="title">博文管理</span>
 								</template>
 								<el-menu-item-group>
 									<span slot="title">文章管理</span>
-									<el-menu-item index="/essay/write">新增</el-menu-item>
+									<el-menu-item index="/essay/write" @click="reloadCurrent">新增</el-menu-item>
 									<el-menu-item index="/essay/edit">编辑</el-menu-item>
 								</el-menu-item-group>
-								<el-menu-item-group title="分组2">
-									<el-menu-item index="1-3">选项3</el-menu-item>
+								<el-menu-item-group title="动态">
+									<el-menu-item index="/micro_blog/write">写动态</el-menu-item>
+									<el-menu-item index="1-4">动态管理</el-menu-item>
 								</el-menu-item-group>
-								<el-submenu index="1-4">
-									<span slot="title">选项4</span>
-									<el-menu-item index="1-4-1">选项1</el-menu-item>
-								</el-submenu>
 							</el-submenu>
-							<el-menu-item index="3">
+							<el-menu-item index="/category">
 								<i class="fa fa-cubes"></i>
 								<span slot="title">分类管理</span>
 							</el-menu-item>
-							<el-menu-item index="4">
+							<el-menu-item index="/message">
 								<i class="fa fa-commenting-o"></i>
 								<span slot="title">消息管理</span>
 							</el-menu-item>
-							<el-menu-item index="5">
+							<el-submenu index="/content_manager" :hide-timeout="100">
+								<template slot="title">
+									<i class="fa fa-folder-open"></i>
+									<span slot="title">内容管理</span>
+								</template>
+								<el-menu-item-group>
+									<span slot="title">链接</span>
+									<el-menu-item index="/links/mylinks">社交媒体</el-menu-item>
+									<el-menu-item index="/links/blogroll">友情链接</el-menu-item>
+								</el-menu-item-group>
+								<el-menu-item-group>
+									<span slot="title">音乐</span>
+									<el-menu-item index="/music/mylove">我喜欢</el-menu-item>
+									<el-menu-item index="/music/playlist">歌单推荐</el-menu-item>
+									<el-menu-item index="/music/carousel">轮播图</el-menu-item>
+								</el-menu-item-group>
+							</el-submenu>
+							<el-menu-item index="/user_list">
 								<i class="fa fa-user-circle"></i>
 								<span slot="title">用户管理</span>
 							</el-menu-item>
-							<el-menu-item index="6">
+							<el-menu-item index="/image_crop">
 								<i class="fa fa-lock"></i>
 								<span slot="title">授权管理</span>
 							</el-menu-item>
@@ -123,17 +136,26 @@
 			}
 		},
 		methods: {
-			handleOpen(key, keyPath) {
-				console.log(key, keyPath)
-			},
-			handleClose(key, keyPath) {
-				console.log(key, keyPath)
-			},
-			handleSelect(key, keyPath) {
-				console.log(key, keyPath)
+			reloadCurrent() {
+				// this.$router.go(this.$route.path)
+				this.$router.replace('/refresh')
 			},
 			changeCollapse() {
 				this.isCollapse = !this.isCollapse
+			},
+			logout() {
+				this.$ajax.get(this.base_url + '/logout').then((response)=>{
+					if(response.data.code === 20000){
+						this.$router.push('/login')
+						this.$store.commit('changeAuthToken', '')
+						localStorage.removeItem("authorization")
+					}else{
+						this.$message({
+							message: response.data.message,
+							type: 'error'
+						})
+					}
+				})
 			}
 		}
 	}

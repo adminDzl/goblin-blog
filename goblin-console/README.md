@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-# goblin-blog
-springboot2+Vue2前后端分离博客项目
-=======
 # petrichat
 
 > web socket chat
@@ -23,4 +19,3 @@ npm run build --report
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
->>>>>>> 初始化提交
