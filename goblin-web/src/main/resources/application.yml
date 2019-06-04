@@ -1,0 +1,42 @@
+spring:
+  datasource:
+    username: root
+    password: 982148
+    url: jdbc:mysql://localhost:3306/goblin_blog?useUnicode=true&characterEncoding=utf8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+#    schema:
+#      - classpath:sql/create_table.sql
+#    data:
+#      - classpath:sql/data-insertdata.sql
+
+    #druid连接池配置，对应DruidDataSource中的属性，所以需要自定义配置将其映射到属性上
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 10000
+    timeBetweenEvictionRunsMillis: 600000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 1 from dual
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    removeAbandoned: true
+    removeAbandonedTimeout: 80
+    keepAlive: true
+    #配置监控统计拦截的filters，去掉后监控界面sql无法统计，‘wall'用于防火墙
+    filters: stat
+    maxPoolPreparedStatementPerConnectionSize: 20
+    useGlobalDataSourceStat: true
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+server:
+  port: 8081
+  servlet:
+    context-path: /goblin

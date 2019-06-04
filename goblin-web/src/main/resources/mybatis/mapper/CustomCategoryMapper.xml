@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xyz.guqing.goblin.mapper.CustomCategoryMapper" >
+  <!-- useGeneratedKeys="true" keyProperty="id" keyColumn="id" -->
+  <insert id="insert" parameterType="xyz.guqing.goblin.entity.BlogCategory" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    insert into blog_category (id, name, sort_key, 
+      article_count, create_time, modify_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{sortKey,jdbcType=INTEGER}, 
+      #{articleCount,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="xyz.guqing.goblin.entity.BlogCategory" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    insert into blog_category
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="sortKey != null" >
+        sort_key,
+      </if>
+      <if test="articleCount != null" >
+        article_count,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sortKey != null" >
+        #{sortKey,jdbcType=INTEGER},
+      </if>
+      <if test="articleCount != null" >
+        #{articleCount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="findAll" resultType="xyz.guqing.goblin.entity.BlogCategory" >
+    select * from blog_category order by sort_key asc
+  </select>
+  <select id="findOneAbove" resultType="xyz.guqing.goblin.entity.BlogCategory">
+    select * from blog_category c WHERE c.sort_key &lt; #{value,jdbcType=INTEGER} order by c.sort_key desc limit 1
+  </select>
+  <select id="findOneBelow" resultType="xyz.guqing.goblin.entity.BlogCategory" parameterType="java.lang.Integer">
+     select * from blog_category c WHERE c.sort_key>#{value,jdbcType=INTEGER} order by c.sort_key asc limit 1
+  </select>
+</mapper>

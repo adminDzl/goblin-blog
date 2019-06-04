@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xyz.guqing.goblin.mapper.CustomBlogArticleMapper" >
+    <!-- useGeneratedKeys="true" keyProperty="id" keyColumn="id" -->
+    <insert id="insert" parameterType="xyz.guqing.goblin.entity.BlogArticle" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    insert into blog_article (id, title, category_id,
+      source_url, summary, cover_url,
+      keyword, article_id_array, click_count,
+      sort_index, commend_flag, comment_flag,
+      tag, comment_count, share_count,
+      last_comment_time, ip, source,
+      visible, status, extra_cid,
+      create_time, modify_time)
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{categoryId,jdbcType=VARCHAR},
+      #{sourceUrl,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, #{coverUrl,jdbcType=VARCHAR},
+      #{keyword,jdbcType=VARCHAR}, #{articleIdArray,jdbcType=VARCHAR}, #{clickCount,jdbcType=INTEGER},
+      #{sortIndex,jdbcType=INTEGER}, #{commendFlag,jdbcType=INTEGER}, #{commentFlag,jdbcType=INTEGER},
+      #{tag,jdbcType=VARCHAR}, #{commentCount,jdbcType=INTEGER}, #{shareCount,jdbcType=INTEGER},
+      #{lastCommentTime,jdbcType=INTEGER}, #{ip,jdbcType=VARCHAR}, #{source,jdbcType=INTEGER},
+      #{visible,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{extraCid,jdbcType=VARCHAR},
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="xyz.guqing.goblin.entity.BlogArticle" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into blog_article
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="title != null" >
+                title,
+            </if>
+            <if test="categoryId != null" >
+                category_id,
+            </if>
+            <if test="sourceUrl != null" >
+                source_url,
+            </if>
+            <if test="summary != null" >
+                summary,
+            </if>
+            <if test="coverUrl != null" >
+                cover_url,
+            </if>
+            <if test="keyword != null" >
+                keyword,
+            </if>
+            <if test="articleIdArray != null" >
+                article_id_array,
+            </if>
+            <if test="clickCount != null" >
+                click_count,
+            </if>
+            <if test="sortIndex != null" >
+                sort_index,
+            </if>
+            <if test="commendFlag != null" >
+                commend_flag,
+            </if>
+            <if test="commentFlag != null" >
+                comment_flag,
+            </if>
+            <if test="tag != null" >
+                tag,
+            </if>
+            <if test="commentCount != null" >
+                comment_count,
+            </if>
+            <if test="shareCount != null" >
+                share_count,
+            </if>
+            <if test="lastCommentTime != null" >
+                last_comment_time,
+            </if>
+            <if test="ip != null" >
+                ip,
+            </if>
+            <if test="source != null" >
+                source,
+            </if>
+            <if test="visible != null" >
+                visible,
+            </if>
+            <if test="status != null" >
+                status,
+            </if>
+            <if test="extraCid != null" >
+                extra_cid,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="modifyTime != null" >
+                modify_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="title != null" >
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="categoryId != null" >
+                #{categoryId,jdbcType=VARCHAR},
+            </if>
+            <if test="sourceUrl != null" >
+                #{sourceUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="summary != null" >
+                #{summary,jdbcType=VARCHAR},
+            </if>
+            <if test="coverUrl != null" >
+                #{coverUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="keyword != null" >
+                #{keyword,jdbcType=VARCHAR},
+            </if>
+            <if test="articleIdArray != null" >
+                #{articleIdArray,jdbcType=VARCHAR},
+            </if>
+            <if test="clickCount != null" >
+                #{clickCount,jdbcType=INTEGER},
+            </if>
+            <if test="sortIndex != null" >
+                #{sortIndex,jdbcType=INTEGER},
+            </if>
+            <if test="commendFlag != null" >
+                #{commendFlag,jdbcType=INTEGER},
+            </if>
+            <if test="commentFlag != null" >
+                #{commentFlag,jdbcType=INTEGER},
+            </if>
+            <if test="tag != null" >
+                #{tag,jdbcType=VARCHAR},
+            </if>
+            <if test="commentCount != null" >
+                #{commentCount,jdbcType=INTEGER},
+            </if>
+            <if test="shareCount != null" >
+                #{shareCount,jdbcType=INTEGER},
+            </if>
+            <if test="lastCommentTime != null" >
+                #{lastCommentTime,jdbcType=INTEGER},
+            </if>
+            <if test="ip != null" >
+                #{ip,jdbcType=VARCHAR},
+            </if>
+            <if test="source != null" >
+                #{source,jdbcType=INTEGER},
+            </if>
+            <if test="visible != null" >
+                #{visible,jdbcType=INTEGER},
+            </if>
+            <if test="status != null" >
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="extraCid != null" >
+                #{extraCid,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null" >
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+</mapper>
