@@ -26,8 +26,8 @@ public class OSSClientUtil {
     // endpoint以杭州为例，其它region请按实际情况填写
     private String endpoint = "http://oss-cn-hangzhou.aliyuncs.com";
     // accessKey
-    private String accessKeyId = "LTAIHSv1iFvsBvFq";
-    private String accessKeySecret = "fEKklNvC32Edw6khj5PMv3ZMxyEozJ";
+    private String accessKeyId = "自己的acessKey";
+    private String accessKeySecret = "自己的secret";
     //空间
     private String bucketName = "guqing-bucket";
     //文件存储目录
